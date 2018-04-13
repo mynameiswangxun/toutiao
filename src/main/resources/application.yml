@@ -1,0 +1,16 @@
+#服务器配置
+server:
+  port: 8080
+
+spring:
+  #数据库驱动配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.56.101:3306/toutiao?characterEncoding=utf-8
+    username: mmall
+    password: mmall
+
+mybatis:
+  type-aliases-package: com.hdutoutiao.pojo
+  mapper-locations: classpath:mappers/*.xml
+
