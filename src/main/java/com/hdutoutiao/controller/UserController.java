@@ -41,4 +41,11 @@ public class UserController {
         }
         return JsonUtil.getJsonString(resMap);
     }
+
+    @PostMapping("/logout")
+    @ResponseBody
+    public String loginout(HttpSession session){
+        session.removeAttribute("user");
+        return JsonUtil.getJsonString(Const.ResponceCode.SUCCESS);
+    }
 }

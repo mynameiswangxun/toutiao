@@ -38,10 +38,11 @@
             <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 
                 <ul class="nav navbar-nav navbar-right">
-                    <#if user??><li class=""><a href="http://nowcoder.com/explore">发现</a></li></#if>
-                    <#if user??><li class=""><a href="http://nowcoder.com/signin">站内信</a></li></#if>
-                    <#if user??><li class=""><a href="http://nowcoder.com/signin">注销</a></li></#if>
-                     <#if !user??><li class="js-login"><a href="javascript:void(0);">登陆</a></li></#if>
+                    <#if user??><li class=""><a href="/explore">${user.username}</a></li></#if>
+                    <#if user??><li class=""><a href="/explore">分享</a></li></#if>
+                    <#if user??><li class=""><a href="/signin">站内信</a></li></#if>
+                    <#if user??><li class="js-logout"><a href="javascript:void(0);">注销</a></li></#if>
+                    <#if !user??><li class="js-login"><a href="javascript:void(0);">登陆</a></li></#if>
                 </ul>
 
             </nav>

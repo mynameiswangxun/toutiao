@@ -8,7 +8,8 @@
         binds: {
             //.表示class #表示id
             'click .js-login': fClickLogin,
-            'click .js-share': fClickShare
+            'click .js-share': fClickShare,
+            'click .js-logout': fClickLogout
         },
         events: {
             'click button.click-like': fClickLike,
@@ -45,6 +46,23 @@
                     window.location.reload();
                 }
             }
+        });
+    }
+
+    function fClickLogout() {
+        var that = this;
+        $.ajax({
+            url: '/user/logout',
+            type: 'post',
+            dataType: 'json'
+        }).done(function (oResult) {
+            if (oResult.code === 0) {
+                window.location.reload();
+            } else {
+                // alert('注销失败，请重试');
+            }
+        }).fail(function () {
+            alert('出现错误，请重试');
         });
     }
 
