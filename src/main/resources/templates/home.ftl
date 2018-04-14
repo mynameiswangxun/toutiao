@@ -38,9 +38,10 @@
             <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 
                 <ul class="nav navbar-nav navbar-right">
-                    <#--<li class=""><a href="http://nowcoder.com/explore">发现</a></li>-->
-                    <#--<li><a href="http://nowcoder.com/signin">站内信</a></li>-->
-                     <li class="js-login"><a href="javascript:void(0);">登陆</a></li>
+                    <#if user??><li class=""><a href="http://nowcoder.com/explore">发现</a></li></#if>
+                    <#if user??><li class=""><a href="http://nowcoder.com/signin">站内信</a></li></#if>
+                    <#if user??><li class=""><a href="http://nowcoder.com/signin">注销</a></li></#if>
+                     <#if !user??><li class="js-login"><a href="javascript:void(0);">登陆</a></li></#if>
                 </ul>
 
             </nav>
@@ -96,7 +97,7 @@
 
     <footer>
         <div class="container">
-            <p class="text-center">© 2013-2016 头条八卦</p>
+            <p class="text-center">© 2017-2020 头条八卦</p>
         </div>
     </footer>
 
