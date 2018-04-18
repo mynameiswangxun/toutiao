@@ -17,7 +17,7 @@
         select
         <include refid="Base_Column_List"/>
         from user
-        where username = #{id,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="selectByUsername" resultType="com.hdutoutiao.pojo.User" parameterType="string">
         select

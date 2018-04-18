@@ -21,7 +21,7 @@ var oPopupUpload = new PopupUpload({
                     '</div>',
                 '</div>',
                   '<div class="form-group"><label class="col-sm-2 control-label">标题</label><div class="col-sm-10"><input class="js-title form-control" type="text"></div></div>',
-                  '<div class="form-group"><label class="col-sm-2 control-label">链接</label><div class="col-sm-10"><input class="js-link form-control" type="text"></div></div>',
+                  '<div class="form-group"><label class="col-sm-2 control-label">内容</label><div class="col-sm-10"><textarea  class="js-link form-control" ></textarea></div></div>',
                   '<div class="form-group">',
                         '<div class="col-lg-10 col-lg-offset-2">',
                             '<input type="submit" value="提交" class="js-submit btn btn-default btn-info">',
@@ -37,7 +37,7 @@ var oPopupUpload = new PopupUpload({
                 var oUploadBtn = oEl.find('a.js-upload-btn');
                 new Upload({
                     targetEl: oUploadBtn,
-                    url: '/uploadImage/',
+                    url: '/upload/newsImage',
                     check: function (oFile, sType, nFileSize) {
                         var sMsg = nFileSize === 0 ? '文件大小不能为0' : /image/gi.test(sType || '') ? '' : '文件格式不正确';
                         sMsg && alert(sMsg);
@@ -46,7 +46,7 @@ var oPopupUpload = new PopupUpload({
                     call: function (oResult) {
                         var sUrl = $.trim(oResult.msg);
                         if (oResult.code !== 0) {
-                            return alert('出现错误，请重试');
+                            return alert('出现错误，请重试，错误信息：'+oResult.msg);
                         }
                         that.image = sUrl;
                         that.showImage(sUrl);
@@ -59,12 +59,12 @@ var oPopupUpload = new PopupUpload({
                 var that = this;
                 var oEl = that.getEl();
                 var sTitle = $.trim(oEl.find('input.js-title').val());
-                var sLink = $.trim(oEl.find('input.js-link').val());
+                var sLink = $.trim(oEl.find('textarea.js-link').val());
                 if (!sTitle) {
                     return alert('标题不能为空');
                 }
                 if (!sLink) {
-                    return alert('链接不能为空');
+                    return alert('内容不能为空');
                 }
                 if (!that.image) {
                     return alert('图片不能为空');
@@ -74,14 +74,18 @@ var oPopupUpload = new PopupUpload({
                 }
                 that.requesting = true;
                 $.ajax({
-                    url: '/user/addNews/',
+                    url: '/news/create/',
                     method: 'post',
-                    data: {image: that.image, title: sTitle, link: sLink},
+                    data: {imageUrl: that.image, title: sTitle, content: sLink},
                     dataType: 'json'
                 }).done(function (oResult) {
-                    that.emit('done');
+                    if(oResult.code==0) {
+                        that.emit('done');
+                    }else{
+                        alert("分享简讯失败，错误信息:"+oResult.msg);
+                    }
                 }).fail(function (oResult) {
-                    alert('出现错误，请重试');
+                    alert('出现错误，请重试!');
                 }).always(function () {
                     that.requesting = false;
                 });

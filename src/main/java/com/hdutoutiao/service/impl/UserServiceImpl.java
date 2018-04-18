@@ -5,6 +5,7 @@ import com.hdutoutiao.dao.UserMapper;
 import com.hdutoutiao.pojo.User;
 import com.hdutoutiao.service.IUserService;
 import com.hdutoutiao.util.MD5Util;
+import com.hdutoutiao.util.PropertiesUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,7 +57,7 @@ public class UserServiceImpl implements IUserService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(MD5Util.MD5EncodeUtf8(password));
-        user.setHeadImage(Integer.toString(new Random().nextInt(20)+1));
+        user.setHeadImage(PropertiesUtil.getProperty("url.image.prefix")+"/user/"+Integer.toString(new Random().nextInt(10)+1)+".png");
         try {
             userMapper.insert(user);
         }catch (Exception e){
