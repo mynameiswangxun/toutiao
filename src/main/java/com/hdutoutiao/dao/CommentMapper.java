@@ -2,6 +2,8 @@ package com.hdutoutiao.dao;
 
 import com.hdutoutiao.pojo.Comment;
 
+import java.util.List;
+
 public interface CommentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectRecentCommentByNewsId(Integer newsId);
 }

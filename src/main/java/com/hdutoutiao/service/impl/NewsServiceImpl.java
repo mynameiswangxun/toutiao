@@ -58,6 +58,20 @@ public class NewsServiceImpl implements INewsService {
         resMap.put("recentNewsVo",recentNewsVo);
         return resMap;
     }
+    @Override
+    public Map<String,Object> getNewsVoById(Integer id){
+        Map<String,Object> resMap = new HashMap<>();
+        News news = newsMapper.selectByPrimaryKey(id);
+        if(news==null){
+            resMap.put("code",Const.ResponceCode.ERROR);
+            resMap.put("msg","该简讯不存在！");
+            return resMap;
+        }
+        NewsVo newsVo = getNewsVo(news);
+        resMap.put("code",Const.ResponceCode.SUCCESS);
+        resMap.put("newsVo",newsVo);
+        return resMap;
+    }
 
     private NewsVo getNewsVo(News news){
         if(news==null){

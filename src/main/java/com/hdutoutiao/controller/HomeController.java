@@ -1,6 +1,9 @@
 package com.hdutoutiao.controller;
 
 import com.hdutoutiao.common.Const;
+import com.hdutoutiao.dao.CommentMapper;
+import com.hdutoutiao.dao.NewsMapper;
+import com.hdutoutiao.pojo.Comment;
 import com.hdutoutiao.pojo.User;
 import com.hdutoutiao.service.INewsService;
 import com.hdutoutiao.service.IUserService;
@@ -10,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -37,5 +41,22 @@ public class HomeController {
             model.addAttribute("recentNewsVo",(List<NewsVo>)resMap.get("recentNewsVo"));
         }
         return "home";
+    }
+
+    @Autowired
+    NewsMapper newsMapper;
+
+    @Autowired
+    CommentMapper commentMapper;
+
+    @RequestMapping(path = "/test",method = RequestMethod.GET)
+    @ResponseBody
+    public Object test(){
+        Comment comment = new Comment();
+        comment.setUserId(6);
+        comment.setNewsId(1);
+        comment.setContent("112");
+        commentMapper.insert(comment);
+        return "123";
     }
 }

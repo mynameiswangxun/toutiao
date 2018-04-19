@@ -4,7 +4,6 @@
     var ActionUtil = Base.getClass('main.util.Action');
 
     Base.ready({
-        initialize: fInitialize,
         binds: {
             //.表示class #表示id
             'click .js-login': fClickLogin,
@@ -15,12 +14,6 @@
             'click button.click-dislike': fClickDisLike
         }
     });
-
-    function fInitialize() {
-        if (window.loginpop > 0) {
-            fClickLogin();
-        }
-    }
     function fClickShare() {
         var that = this;
             PopupUpload.show({
