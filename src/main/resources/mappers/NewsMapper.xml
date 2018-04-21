@@ -96,6 +96,9 @@
             </if>
         </trim>
     </insert>
+    <update id="addCommentById" parameterType="int">
+        update news set comment_count=comment_count+1 where id=#{id,jdbcType=INTEGER}
+    </update>
     <update id="updateByPrimaryKeySelective" parameterType="com.hdutoutiao.pojo.News">
         update news
         <set>

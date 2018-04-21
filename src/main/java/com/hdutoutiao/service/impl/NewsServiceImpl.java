@@ -80,7 +80,7 @@ public class NewsServiceImpl implements INewsService {
         NewsVo newsVo = new NewsVo();
         newsVo.setId(news.getId());
         newsVo.setCommentCount(news.getCommentCount());
-        newsVo.setLikeCount(news.getCommentCount());
+        newsVo.setLikeCount(news.getLikeCount());
         newsVo.setTitle(news.getTitle());
         newsVo.setCreateTime(news.getCreateTime());
         newsVo.setContent(news.getContent());

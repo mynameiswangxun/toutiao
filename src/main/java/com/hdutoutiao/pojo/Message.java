@@ -5,9 +5,9 @@ import java.util.Date;
 public class Message {
     private Integer id;
 
-    private Integer fromid;
+    private Integer fromId;
 
-    private Integer toid;
+    private Integer toId;
 
     private String content;
 
@@ -15,10 +15,10 @@ public class Message {
 
     private Date createTime;
 
-    public Message(Integer id, Integer fromid, Integer toid, String content, Integer conversationId, Date createTime) {
+    public Message(Integer id, Integer fromId, Integer toId, String content, Integer conversationId, Date createTime) {
         this.id = id;
-        this.fromid = fromid;
-        this.toid = toid;
+        this.fromId = fromId;
+        this.toId = toId;
         this.content = content;
         this.conversationId = conversationId;
         this.createTime = createTime;
@@ -36,20 +36,20 @@ public class Message {
         this.id = id;
     }
 
-    public Integer getFromid() {
-        return fromid;
+    public Integer getFromId() {
+        return fromId;
     }
 
-    public void setFromid(Integer fromid) {
-        this.fromid = fromid;
+    public void setFromId(Integer fromId) {
+        this.fromId = fromId;
     }
 
-    public Integer getToid() {
-        return toid;
+    public Integer getToId() {
+        return toId;
     }
 
-    public void setToid(Integer toid) {
-        this.toid = toid;
+    public void setToId(Integer toId) {
+        this.toId = toId;
     }
 
     public String getContent() {

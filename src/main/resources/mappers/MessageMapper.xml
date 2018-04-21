@@ -4,15 +4,15 @@
   <resultMap id="BaseResultMap" type="com.hdutoutiao.pojo.Message" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="fromid" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="toid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="from_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="to_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="conversation_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List" >
-    id, fromid, toid, content, conversation_id, create_time
+    id, from_id, to_id, content, conversation_id, create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -25,11 +25,11 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.hdutoutiao.pojo.Message" >
-    insert into message (id, fromid, toid, 
+    insert into message (id, from_id, to_id, 
       content, conversation_id, create_time
       )
-    values (#{id,jdbcType=INTEGER}, #{fromid,jdbcType=INTEGER}, #{toid,jdbcType=INTEGER}, 
-      #{content,jdbcType=VARCHAR}, #{conversationId,jdbcType=INTEGER}, now()
+    values (#{id,jdbcType=INTEGER}, #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{conversationId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hdutoutiao.pojo.Message" >
@@ -38,11 +38,11 @@
       <if test="id != null" >
         id,
       </if>
-      <if test="fromid != null" >
-        fromid,
+      <if test="fromId != null" >
+        from_id,
       </if>
-      <if test="toid != null" >
-        toid,
+      <if test="toId != null" >
+        to_id,
       </if>
       <if test="content != null" >
         content,
@@ -58,11 +58,11 @@
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="fromid != null" >
-        #{fromid,jdbcType=INTEGER},
+      <if test="fromId != null" >
+        #{fromId,jdbcType=INTEGER},
       </if>
-      <if test="toid != null" >
-        #{toid,jdbcType=INTEGER},
+      <if test="toId != null" >
+        #{toId,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         #{content,jdbcType=VARCHAR},
@@ -78,11 +78,11 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.hdutoutiao.pojo.Message" >
     update message
     <set >
-      <if test="fromid != null" >
-        fromid = #{fromid,jdbcType=INTEGER},
+      <if test="fromId != null" >
+        from_id = #{fromId,jdbcType=INTEGER},
       </if>
-      <if test="toid != null" >
-        toid = #{toid,jdbcType=INTEGER},
+      <if test="toId != null" >
+        to_id = #{toId,jdbcType=INTEGER},
       </if>
       <if test="content != null" >
         content = #{content,jdbcType=VARCHAR},
@@ -98,8 +98,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hdutoutiao.pojo.Message" >
     update message
-    set fromid = #{fromid,jdbcType=INTEGER},
-      toid = #{toid,jdbcType=INTEGER},
+    set from_id = #{fromId,jdbcType=INTEGER},
+      to_id = #{toId,jdbcType=INTEGER},
       content = #{content,jdbcType=VARCHAR},
       conversation_id = #{conversationId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP}

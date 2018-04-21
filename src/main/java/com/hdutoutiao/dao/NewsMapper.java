@@ -1,6 +1,7 @@
 package com.hdutoutiao.dao;
 
 import com.hdutoutiao.pojo.News;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface NewsMapper {
     int updateByPrimaryKey(News record);
 
     List<News> selectRecentNews();
+
+    int addCommentById(@Param("id") Integer id);
 }

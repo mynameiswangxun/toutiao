@@ -43,20 +43,8 @@ public class HomeController {
         return "home";
     }
 
-    @Autowired
-    NewsMapper newsMapper;
-
-    @Autowired
-    CommentMapper commentMapper;
-
     @RequestMapping(path = "/test",method = RequestMethod.GET)
-    @ResponseBody
     public Object test(){
-        Comment comment = new Comment();
-        comment.setUserId(6);
-        comment.setNewsId(1);
-        comment.setContent("112");
-        commentMapper.insert(comment);
-        return "123";
+        return "letter_detail";
     }
 }

@@ -2,6 +2,7 @@ package com.hdutoutiao.service.impl;
 
 import com.hdutoutiao.common.Const;
 import com.hdutoutiao.dao.CommentMapper;
+import com.hdutoutiao.dao.NewsMapper;
 import com.hdutoutiao.dao.UserMapper;
 import com.hdutoutiao.pojo.Comment;
 import com.hdutoutiao.pojo.User;
@@ -24,6 +25,9 @@ public class CommentSerivceImpl implements ICommentService{
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    NewsMapper newsMapper;
+
     @Override
     public Map<String,Object> createComment(Integer newsId,Integer userId,String content)
     {
@@ -37,6 +41,7 @@ public class CommentSerivceImpl implements ICommentService{
             resMap.put("code", Const.ResponceCode.ERROR);
             resMap.put("msg","添加评论失败");
         }
+        newsMapper.addCommentById(newsId);
         resMap.put("code",Const.ResponceCode.SUCCESS);
         return resMap;
     }

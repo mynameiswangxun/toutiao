@@ -6674,7 +6674,7 @@ header.navbar .navbar-toggle .icon-bar {
     left: 80px;
     top: 20px;
     z-index: 2;
-    color: #CCC;
+    color: #21a88b;
     display: inline-block;
     /*display: block;*/
 
@@ -6764,6 +6764,14 @@ header.navbar .navbar-toggle .icon-bar {
     padding: 20px 25px;
     text-align: left;
     color: #666;
+}
+.letter-chat-myself {
+  background: #666;
+  width: 600px;
+  max-width: 100%;
+  padding: 20px 25px;
+  text-align: left;
+  color: #ECF1F1;
 }
 .letter-chatlist .list-head {
   margin: 20px 20px 0 0;
