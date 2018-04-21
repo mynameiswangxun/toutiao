@@ -8,4 +8,6 @@ public interface IUserService {
 
     Map<String,Object> login(String username, String password);
 
+    Map<String,Object> getUserById(Integer id);
+
 }

@@ -101,4 +101,27 @@ public class UserServiceImpl implements IUserService {
         map.put("user",user);
         return map;
     }
+
+    @Override
+    public Map<String,Object> getUserById(Integer id) {
+
+        Map<String,Object> map = new HashMap<>();
+
+        if(id==null){
+            map.put("code",Const.ResponceCode.ERROR);
+            map.put("msg","id不能为空");
+            return map;
+        }
+
+        User user = userMapper.selectByPrimaryKey(id);
+        if(user==null){
+            map.put("code",Const.ResponceCode.ERROR);
+            map.put("msg","用户不存在");
+            return map;
+        }
+        user.setPassword("");
+        map.put("code",Const.ResponceCode.SUCCESS);
+        map.put("user",user);
+        return map;
+    }
 }

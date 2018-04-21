@@ -6,10 +6,8 @@ import com.hdutoutiao.service.IUserService;
 import com.hdutoutiao.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.Map;
@@ -47,5 +45,15 @@ public class UserController {
     public String loginout(HttpSession session){
         session.removeAttribute("user");
         return JsonUtil.getJsonString(Const.ResponceCode.SUCCESS);
+    }
+
+    @GetMapping("/detail/{id}")
+    public String userDetail(@PathVariable("id") Integer id, Model model){
+        Map<String,Object> resMap = iUserService.getUserById(id);
+        if(resMap.get("code").equals(Const.ResponceCode.ERROR)){
+            return "page_not_found";
+        }
+        model.addAttribute("user",resMap.get("user"));
+        return "user_detail";
     }
 }
