@@ -53,7 +53,7 @@ public class UserController {
         if(resMap.get("code").equals(Const.ResponceCode.ERROR)){
             return "page_not_found";
         }
-        model.addAttribute("user",resMap.get("user"));
+        model.addAttribute("other_user",resMap.get("user"));
         return "user_detail";
     }
 }

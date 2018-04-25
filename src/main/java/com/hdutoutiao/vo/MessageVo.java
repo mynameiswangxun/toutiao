@@ -1,8 +1,9 @@
-package com.hdutoutiao.pojo;
+package com.hdutoutiao.vo;
 
 import java.util.Date;
 
-public class Message {
+public class MessageVo {
+
     private Integer id;
 
     private Integer fromId;
@@ -15,17 +16,24 @@ public class Message {
 
     private Integer conversationId;
 
-    public Message(Integer id, Integer fromId, Integer toId, String content, Date createTime, Integer conversationId) {
+    private boolean isSender;
+
+    private String senderName;
+
+    private String senderHeadImg;
+
+    public MessageVo(){}
+
+    public MessageVo(Integer id, Integer fromId, Integer toId, String content, Date createTime, Integer conversationId, boolean isSender, String senderName, String senderHeadImg) {
         this.id = id;
         this.fromId = fromId;
         this.toId = toId;
         this.content = content;
         this.createTime = createTime;
         this.conversationId = conversationId;
-    }
-
-    public Message() {
-        super();
+        this.isSender = isSender;
+        this.senderName = senderName;
+        this.senderHeadImg = senderHeadImg;
     }
 
     public Integer getId() {
@@ -57,7 +65,7 @@ public class Message {
     }
 
     public void setContent(String content) {
-        this.content = content == null ? null : content.trim();
+        this.content = content;
     }
 
     public Date getCreateTime() {
@@ -74,5 +82,29 @@ public class Message {
 
     public void setConversationId(Integer conversationId) {
         this.conversationId = conversationId;
+    }
+
+    public boolean getIsSender() {
+        return isSender;
+    }
+
+    public void setIsSender(boolean sender) {
+        isSender = sender;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getSenderHeadImg() {
+        return senderHeadImg;
+    }
+
+    public void setSenderHeadImg(String senderHeadImg) {
+        this.senderHeadImg = senderHeadImg;
     }
 }

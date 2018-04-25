@@ -2,6 +2,8 @@ package com.hdutoutiao.dao;
 
 import com.hdutoutiao.pojo.Message;
 
+import java.util.List;
+
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface MessageMapper {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+
+    List<Message> selectMessageByConversationId(Integer conversationId);
 }

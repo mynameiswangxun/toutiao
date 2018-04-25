@@ -45,6 +45,6 @@ public class HomeController {
 
     @RequestMapping(path = "/test",method = RequestMethod.GET)
     public Object test(){
-        return "letter_detail";
+        return "message_detail";
     }
 }
