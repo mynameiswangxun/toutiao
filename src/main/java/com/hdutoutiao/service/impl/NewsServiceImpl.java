@@ -6,6 +6,7 @@ import com.hdutoutiao.dao.UserMapper;
 import com.hdutoutiao.pojo.News;
 import com.hdutoutiao.pojo.User;
 import com.hdutoutiao.service.INewsService;
+import com.hdutoutiao.util.RedisServiceUtil;
 import com.hdutoutiao.vo.NewsVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,33 +48,70 @@ public class NewsServiceImpl implements INewsService {
     }
 
     @Override
-    public Map<String,Object> getRecentNewsVo(){
+    public Map<String,Object> getRecentNewsVo(Integer userId){
         Map<String,Object> resMap = new HashMap<>();
         List<NewsVo> recentNewsVo = new ArrayList<>();
         List<News> recentNews = newsMapper.selectRecentNews();
         for (News news : recentNews) {
-            recentNewsVo.add(getNewsVo(news));
+            recentNewsVo.add(getNewsVo(news,userId));
         }
         resMap.put("code",Const.ResponceCode.SUCCESS);
         resMap.put("recentNewsVo",recentNewsVo);
         return resMap;
     }
     @Override
-    public Map<String,Object> getNewsVoById(Integer id){
+    public Map<String,Object> getNewsVoById(Integer newsId,Integer userId){
         Map<String,Object> resMap = new HashMap<>();
-        News news = newsMapper.selectByPrimaryKey(id);
+        News news = newsMapper.selectByPrimaryKey(newsId);
         if(news==null){
             resMap.put("code",Const.ResponceCode.ERROR);
             resMap.put("msg","该简讯不存在！");
             return resMap;
         }
-        NewsVo newsVo = getNewsVo(news);
+        NewsVo newsVo = getNewsVo(news,userId);
         resMap.put("code",Const.ResponceCode.SUCCESS);
         resMap.put("newsVo",newsVo);
         return resMap;
     }
 
-    private NewsVo getNewsVo(News news){
+    @Override
+    public Map<String,Object> likeNews(Integer userId,Integer newsId){
+        Map<String,Object> resMap = new HashMap<>();
+        if(RedisServiceUtil.isLikeNews(userId,newsId)){
+            News news = newsMapper.selectByPrimaryKey(newsId);
+            resMap.put("code",Const.ResponceCode.SUCCESS);
+            resMap.put("msg",news.getLikeCount());
+            return resMap;
+        }
+        RedisServiceUtil.likeNews(userId,newsId);
+        newsMapper.addLikeNum(newsId);
+        News news = newsMapper.selectByPrimaryKey(newsId);
+        resMap.put("code",Const.ResponceCode.SUCCESS);
+        resMap.put("msg",news.getLikeCount());
+        return resMap;
+    }
+
+    @Override
+    public Map<String,Object> dislikeNews(Integer userId,Integer newsId){
+        Map<String,Object> resMap = new HashMap<>();
+        if(RedisServiceUtil.isDislikeNews(userId,newsId)){
+            News news = newsMapper.selectByPrimaryKey(newsId);
+            resMap.put("code",Const.ResponceCode.SUCCESS);
+            resMap.put("msg",news.getLikeCount());
+            return resMap;
+        }
+        boolean isLike = RedisServiceUtil.isLikeNews(userId,newsId);
+        RedisServiceUtil.dislikeNews(userId,newsId);
+        if(isLike){
+            newsMapper.reduceLikeNum(newsId);
+        }
+        News news = newsMapper.selectByPrimaryKey(newsId);
+        resMap.put("code",Const.ResponceCode.SUCCESS);
+        resMap.put("msg",news.getLikeCount());
+        return resMap;
+    }
+
+    private NewsVo getNewsVo(News news,Integer userId){
         if(news==null){
             return null;
         }
@@ -89,6 +127,10 @@ public class NewsServiceImpl implements INewsService {
         newsVo.setUserId(user.getId());
         newsVo.setUsername(user.getUsername());
         newsVo.setHeadImage(user.getHeadImage());
+        if(userId!=null){
+            newsVo.setIsLike(RedisServiceUtil.isLikeNews(userId,news.getId()));
+            newsVo.setIsDislike(RedisServiceUtil.isDislikeNews(userId,news.getId()));
+        }
         return newsVo;
     }
 }

@@ -1,7 +1,6 @@
 package com.hdutoutiao.controller;
 
 import com.hdutoutiao.common.Const;
-import com.hdutoutiao.pojo.Comment;
 import com.hdutoutiao.pojo.User;
 import com.hdutoutiao.service.ICommentService;
 import com.hdutoutiao.service.INewsService;
@@ -44,7 +43,7 @@ public class NewsController {
         if(user!=null){
             model.addAttribute("user",user);
         }
-        Map<String,Object> resMap = iNewsService.getNewsVoById(id);
+        Map<String,Object> resMap = iNewsService.getNewsVoById(id,user==null?null:user.getId());
         if(resMap.get("code").equals(Const.ResponceCode.ERROR)){
             return "page_not_found";
         }else{
@@ -54,4 +53,28 @@ public class NewsController {
         }
         return "news_detail";
     }
+
+    //msg返回like数目既可
+    @PostMapping("/like")
+    @ResponseBody
+    public String likeNews(HttpSession session,@RequestParam("newsId") Integer newsId){
+        User user = (User)session.getAttribute("user");
+        if(user==null){
+            return JsonUtil.getJsonString(Const.ResponceCode.ERROR,"用户未登录");
+        }
+        Map<String,Object> resMap = iNewsService.likeNews(user.getId(),newsId);
+        return JsonUtil.getJsonString(resMap);
+    }
+    //同上
+    @PostMapping("/dislike")
+    @ResponseBody
+    public String dislikeNews(HttpSession session,@RequestParam("newsId") Integer newsId){
+        User user = (User)session.getAttribute("user");
+        if(user==null){
+            return JsonUtil.getJsonString(Const.ResponceCode.ERROR,"用户未登录");
+        }
+        Map<String,Object> resMap = iNewsService.dislikeNews(user.getId(),newsId);
+        return JsonUtil.getJsonString(resMap);
+    }
+
 }

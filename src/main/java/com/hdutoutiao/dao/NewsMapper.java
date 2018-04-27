@@ -21,4 +21,8 @@ public interface NewsMapper {
     List<News> selectRecentNews();
 
     int addCommentById(@Param("id") Integer id);
+
+    int addLikeNum(Integer id);
+
+    int reduceLikeNum(Integer id);
 }

@@ -13,8 +13,8 @@
                 <div class="post">
                     <div class="post">
                         <div class="votebar">
-                            <button class="click-like up" aria-pressed="false" title="赞同"><i class="vote-arrow"></i><span class="count">${newsVo.likeCount}</span></button>
-                            <button class="click-dislike down" aria-pressed="true" title="反对"><i class="vote-arrow"></i>
+                            <button class="click-like up <#if newsVo.isLike>pressed</#if>" data-id="${newsVo.id}" aria-pressed="false" title="赞同"><i class="vote-arrow"></i><span class="count">${newsVo.likeCount}</span></button>
+                            <button class="click-dislike down <#if newsVo.isDislike>pressed</#if>"  data-id="${newsVo.id}" aria-pressed="true" title="反对"><i class="vote-arrow"></i>
                             </button>
                         </div>
                         <div class="content">

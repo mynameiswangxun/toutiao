@@ -53,12 +53,16 @@
         ActionUtil.like({
             newsId: sId,
             call: function (oResult) {
-                oEl.find('span.count').html(oResult.msg);
-                oEl.addClass('pressed');
-                oEl.parent().find('.click-dislike').removeClass('pressed');
+                if(oResult.code==0){
+                    oEl.find('span.count').html(oResult.msg);
+                    oEl.addClass('pressed');
+                    oEl.parent().find('.click-dislike').removeClass('pressed');
+                }else{
+                    alert(oResult.msg);
+                }
             },
-            error: function () {
-                alert('出现错误，请重试');
+            error: function (oResult) {
+                alert(oResult.msg);
             },
             always: function () {
                 that.actioning = false;
@@ -78,13 +82,17 @@
         ActionUtil.dislike({
             newsId: sId,
             call: function (oResult) {
-                oEl.addClass('pressed');
-                var oLikeBtn = oEl.parent().find('.click-like');
-                oLikeBtn.removeClass('pressed');
-                oLikeBtn.find('span.count').html(oResult.msg);
+                if(oResult.code==0){
+                    oEl.addClass('pressed');
+                    var oLikeBtn = oEl.parent().find('.click-like');
+                    oLikeBtn.removeClass('pressed');
+                    oLikeBtn.find('span.count').html(oResult.msg);
+                }else{
+                    alert(oResult.msg);
+                }
             },
-            error: function () {
-                alert('出现错误，请重试');
+            error: function (oResult) {
+                alert(oResult.msg);
             },
             always: function () {
                 that.actioning = false;

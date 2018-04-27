@@ -96,6 +96,12 @@
             </if>
         </trim>
     </insert>
+    <update id="reduceLikeNum" parameterType="int">
+        update news set like_count=like_count-1 where id=#{id,jdbcType=INTEGER}
+    </update>
+    <update id="addLikeNum" parameterType="int">
+        update news set like_count=like_count+1 where id=#{id,jdbcType=INTEGER}
+    </update>
     <update id="addCommentById" parameterType="int">
         update news set comment_count=comment_count+1 where id=#{id,jdbcType=INTEGER}
     </update>

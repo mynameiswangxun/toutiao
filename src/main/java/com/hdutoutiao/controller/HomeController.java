@@ -36,7 +36,7 @@ public class HomeController {
         if(user!=null){
             model.addAttribute("user",user);
         }
-        Map<String,Object> resMap = iNewsService.getRecentNewsVo();
+        Map<String,Object> resMap = iNewsService.getRecentNewsVo(user==null?null:user.getId());
         if(resMap.get("code").equals(Const.ResponceCode.SUCCESS)){
             model.addAttribute("recentNewsVo",(List<NewsVo>)resMap.get("recentNewsVo"));
         }

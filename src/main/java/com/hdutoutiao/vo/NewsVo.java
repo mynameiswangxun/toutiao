@@ -24,7 +24,15 @@ public class NewsVo {
 
     private Date createTime;
 
-    public NewsVo(Integer id, Integer userId, String title, String mainImage, Integer likeCount, Integer commentCount, String content, String username, String headImage, Date createTime) {
+    private boolean isLike;
+
+    private boolean isDislike;
+
+    public NewsVo(){
+
+    }
+
+    public NewsVo(Integer id, Integer userId, String title, String mainImage, Integer likeCount, Integer commentCount, String content, String username, String headImage, Date createTime, Boolean isLike, Boolean isDislike) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -35,10 +43,8 @@ public class NewsVo {
         this.username = username;
         this.headImage = headImage;
         this.createTime = createTime;
-    }
-
-    public NewsVo(){
-
+        this.isLike = isLike;
+        this.isDislike = isDislike;
     }
 
     public Integer getId() {
@@ -119,5 +125,21 @@ public class NewsVo {
 
     public Integer getUserId() {
         return userId;
+    }
+
+    public boolean getIsLike() {
+        return isLike;
+    }
+
+    public void setIsLike(Boolean like) {
+        isLike = like;
+    }
+
+    public boolean getIsDislike() {
+        return isDislike;
+    }
+
+    public void setIsDislike(Boolean dislike) {
+        isDislike = dislike;
     }
 }

@@ -17,7 +17,7 @@
     function fLike(oConf) {
         var that = this;
         that.post({
-            url: '/like',
+            url: '/news/like',
             data: {newsId: oConf.newsId},
             call: oConf.call,
             error: oConf.error,
@@ -36,7 +36,7 @@
     function fDislike(oConf) {
         var that = this;
         that.post({
-            url: '/dislike',
+            url: '/news/dislike',
             data: {newsId: oConf.newsId},
             call: oConf.call,
             error: oConf.error,
